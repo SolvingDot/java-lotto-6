@@ -1,6 +1,5 @@
 package lotto.domain;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -20,20 +19,14 @@ public class Controller {
     }
 
     public void start() {
-        String inputMoney = input.askToPay();
-
-        validate(inputMoney);
-        long money = Integer.parseInt(inputMoney);
+        InputProcessor processor = new InputProcessor(input);
+        long money = processor.processInputOfMoney();
 
         LottoMachineController lottoMachineController = new LottoMachineController(input, output);
         List<Lotto> lottos = lottoMachineController.execute(money);
 
-        String inputWinningNumber = input.askWinningNumbers();
-        List<Integer> winningNumbers;
-
-        String inputBonusNumber = input.askBonusNumber();
-        validate(inputBonusNumber);
-        int bonusNumber = Integer.parseInt(inputBonusNumber);
+        List<Integer> winningNumbers = processor.processInputOfWinningNumbers();
+        int bonusNumber = processor.processInputOfBonusNumber(winningNumbers);
 
         LottoMarker lottoMarker = new LottoMarker();
         Map<Integer, Integer> winningTable = lottoMarker.makeWinningTable(lottos, winningNumbers, bonusNumber);

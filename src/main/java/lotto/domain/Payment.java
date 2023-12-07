@@ -11,14 +11,26 @@ public class Payment {
         this.money = money;
     }
 
+    public long getMoney() {
+        return money;
+    }
+
     public long countLotto(long money) {
         return money / MINIMUM_UNIT;
     }
 
     private void validate(long money) {
+        ensureIsOrOverMinimum(money);
+        ensureIsDivisibleByMinimumUnit(money);
+    }
+
+    private void ensureIsOrOverMinimum(long money) {
         if (money < MINIMUM_UNIT) {
             throw new IllegalArgumentException("최소 금액은 1000원입니다.");
         }
+    }
+
+    private void ensureIsDivisibleByMinimumUnit(long money) {
         if (money % MINIMUM_UNIT != NO_REMAINDER) {
             throw new IllegalArgumentException("1000단위로 입력해주세요.");
         }
