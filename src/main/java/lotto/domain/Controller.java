@@ -27,8 +27,14 @@ public class Controller {
         LottoMachineController lottoMachineController = new LottoMachineController(input, output);
         List<Lotto> lottos = lottoMachineController.execute(money);
 
+        String inputWinningNumber = input.askWinningNumbers();
+
+        String inputBonusNumber = input.askBonusNumber();
+        validate(inputBonusNumber);
+        int bonusNumber = Integer.parseInt(inputBonusNumber);
+
     }
-    private static void validate(String inputMoney) {
+    private void validate(String inputMoney) {
         if (inputMoney.isEmpty()) {
             throw new IllegalArgumentException("입력값이 없습니다.");
         }
