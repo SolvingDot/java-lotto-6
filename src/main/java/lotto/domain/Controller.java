@@ -2,6 +2,7 @@ package lotto.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import lotto.view.InputView;
@@ -28,10 +29,14 @@ public class Controller {
         List<Lotto> lottos = lottoMachineController.execute(money);
 
         String inputWinningNumber = input.askWinningNumbers();
+        List<Integer> winningNumbers;
 
         String inputBonusNumber = input.askBonusNumber();
         validate(inputBonusNumber);
         int bonusNumber = Integer.parseInt(inputBonusNumber);
+
+        LottoMarker lottoMarker = new LottoMarker();
+        Map<Integer, Integer> winningTable = lottoMarker.makeWinningTable(lottos, winningNumbers, bonusNumber);
 
     }
     private void validate(String inputMoney) {
