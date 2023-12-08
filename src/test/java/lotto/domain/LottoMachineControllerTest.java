@@ -11,9 +11,8 @@ class LottoMachineControllerTest {
     @Test
     void name() {
         // Given
-        InputView input = new InputView();
         OutputView output = new OutputView();
-        LottoMachineController lottoMachineController = new LottoMachineController(input, output);
+        LottoMachineController lottoMachineController = new LottoMachineController(output);
 
         // When
         List<Lotto> lottos = lottoMachineController.execute(4000);

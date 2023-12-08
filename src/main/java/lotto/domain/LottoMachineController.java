@@ -7,11 +7,9 @@ import lotto.view.InputView;
 import lotto.view.OutputView;
 
 public class LottoMachineController {
-    private final InputView input;
     private final OutputView output;
 
-    public LottoMachineController(InputView input, OutputView output) {
-        this.input = input;
+    public LottoMachineController(OutputView output) {
         this.output = output;
     }
     public List<Lotto> execute(long money) {

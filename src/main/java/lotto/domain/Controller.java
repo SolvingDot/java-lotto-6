@@ -2,9 +2,9 @@ package lotto.domain;
 
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import lotto.view.InputView;
+import lotto.view.OutputMessage;
 import lotto.view.OutputView;
 
 public class Controller {
@@ -22,7 +22,7 @@ public class Controller {
         InputProcessor processor = new InputProcessor(input);
         long money = processor.processInputOfMoney();
 
-        LottoMachineController lottoMachineController = new LottoMachineController(input, output);
+        LottoMachineController lottoMachineController = new LottoMachineController(output);
         List<Lotto> lottos = lottoMachineController.execute(money);
 
         List<Integer> winningNumbers = processor.processInputOfWinningNumbers();
@@ -31,14 +31,6 @@ public class Controller {
         LottoMarker lottoMarker = new LottoMarker();
         Map<Integer, Integer> winningTable = lottoMarker.makeWinningTable(lottos, winningNumbers, bonusNumber);
 
-    }
-    private void validate(String inputMoney) {
-        if (inputMoney.isEmpty()) {
-            throw new IllegalArgumentException("입력값이 없습니다.");
-        }
-        Matcher matcher = pattern.matcher(inputMoney);
-        if (!matcher.matches()) {
-            throw new IllegalArgumentException("숫자가 아닙니다.");
-        }
+        output.printWinningDetails(winningTable);
     }
 }
